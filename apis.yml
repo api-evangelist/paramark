@@ -1,8 +1,17 @@
 aid: paramark
 name: Paramark
-description: 'Paramark is a company surfaced as a portfolio company of greylock and added to the API Evangelist
-  network as a stub for enrichment. Sector: applications. This profile is a lead awaiting the enrichment
-  pipeline.'
+description: 'Paramark is a marketing measurement and forecasting platform that helps
+  growth and finance teams understand the true incremental impact of their marketing
+  spend. Founded in 2022 by Pranav Piyush and Pete Belknap and backed by Greylock,
+  Paramark combines incrementality testing, marketing mix modeling (MMM), and scenario
+  planning in one place, augmented by human growth advisors and AI agents. Rather
+  than relying on last-touch attribution, the platform uses statistics and machine
+  learning to quantify each channel''s incremental contribution across search, social,
+  TV, and out-of-home, giving marketers defensible ROI numbers to bring to their finance
+  teams. Paramark maintains an open-source Marketing Mix Modeling workbench and forks
+  of the major MMM libraries under its paramark-inc GitHub organization. Paramark
+  does not currently publish a public developer API or documentation portal; API access
+  is offered as a feature of its Advanced commercial tier.'
 url: https://raw.githubusercontent.com/api-evangelist/paramark/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -10,12 +19,31 @@ x-backed-by:
 - greylock
 x-tier: stub
 x-tier-reason: portfolio-lead
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source: []
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-20'
+image: https://framerusercontent.com/images/V0dFY5kITNK8vNXgA2K3xW0y6k.png
 tags:
 - Company
 - Applications
+- Marketing
+- Analytics
+- Measurement
+- Marketing Mix Modeling
+- Incrementality
+- Advertising
+- AI
 apis: []
 maintainers:
 - FN: Kin Lane
@@ -23,5 +51,22 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/paramark-domain-security.yml
 - type: Website
   url: https://paramark.com/
+- type: Pricing
+  url: https://paramark.com/pricing
+- type: Blog
+  url: https://paramark.com/blog
+- type: PrivacyPolicy
+  url: https://paramark.com/privacy-policy
+- type: GitHubOrganization
+  url: https://github.com/paramark-inc
+- type: Login
+  url: https://notebooks.paramark.com/
+x-enrichment:
+  date: '2026-07-20'
+  status: minimal
+  artifacts_added: 1
+  pass: local-v1
