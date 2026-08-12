@@ -1,0 +1,108 @@
+generated: '2026-08-12'
+method: probed
+source: >-
+  well-known/paramark-openid-configuration.json, well-known/paramark-oauth-authorization-server.json,
+  and live probes of api.paramark.com and trust.paramark.com on 2026-08-12
+note: >-
+  Every assertion below is scored against a document or response actually fetched from a Paramark
+  host. Paramark publishes no OpenAPI, so no spec-derived conformance claims are made. No
+  certification names could be read from the trust center (it renders client-side), so no
+  compliance certification is asserted here and no Compliance pointer is emitted.
+standards:
+- id: oidc-discovery
+  name: OpenID Connect Discovery 1.0
+  conforms: true
+  evidence: >-
+    https://signin.paramark.com/.well-known/openid-configuration returns HTTP 200 with a valid
+    discovery document carrying issuer, authorization_endpoint, token_endpoint, userinfo_endpoint,
+    jwks_uri, response_types_supported, subject_types_supported and
+    id_token_signing_alg_values_supported.
+- id: rfc8414
+  name: OAuth 2.0 Authorization Server Metadata (RFC 8414)
+  conforms: true
+  evidence: >-
+    https://signin.paramark.com/.well-known/oauth-authorization-server returns HTTP 200 with
+    issuer, authorization_endpoint, token_endpoint, jwks_uri, response_types_supported and
+    grant_types_supported.
+- id: oauth2
+  name: OAuth 2.0 (RFC 6749)
+  conforms: true
+  evidence: >-
+    authorization_code, client_credentials and refresh_token grants advertised in the discovery
+    document; response_type code only.
+- id: rfc7636
+  name: PKCE (RFC 7636)
+  conforms: true
+  evidence: 'code_challenge_methods_supported: ["S256"] in the authorization server
+    metadata.'
+- id: rfc8628
+  name: OAuth 2.0 Device Authorization Grant (RFC 8628)
+  conforms: true
+  evidence: device_authorization_endpoint published and
+    urn:ietf:params:oauth:grant-type:device_code listed in grant_types_supported.
+- id: rfc7591
+  name: OAuth 2.0 Dynamic Client Registration (RFC 7591)
+  conforms: true
+  evidence: 'registration_endpoint: https://signin.paramark.com/oauth2/register in
+    the authorization server metadata.'
+- id: rfc7662
+  name: OAuth 2.0 Token Introspection (RFC 7662)
+  conforms: true
+  evidence: 'introspection_endpoint: https://signin.paramark.com/oauth2/introspection
+    in both metadata documents.'
+- id: rfc9728
+  name: OAuth 2.0 Protected Resource Metadata (RFC 9728)
+  conforms: false
+  evidence: >-
+    https://api.paramark.com/.well-known/oauth-protected-resource returns HTTP 404 and
+    https://signin.paramark.com/.well-known/oauth-protected-resource returns HTTP 404, so the
+    API host does not advertise which authorization server protects it.
+- id: rfc9116
+  name: security.txt (RFC 9116)
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on paramark.com, api.paramark.com
+    and signin.paramark.com.
+- id: openapi
+  name: OpenAPI
+  conforms: false
+  evidence: >-
+    api.paramark.com is a FastAPI service (server: uvicorn) and therefore generates an OpenAPI
+    document, but GET https://api.paramark.com/openapi.json returns HTTP 401 with
+    www-authenticate: Basic. No OpenAPI is published at any public URL on any Paramark host.
+- id: rfc9457
+  name: Problem Details for HTTP APIs (RFC 9457)
+  conforms: false
+  evidence: >-
+    Observed error bodies on api.paramark.com are the FastAPI default shape
+    {"detail":"Not Found"} / {"detail":"Unauthorized"} served as application/json, not
+    application/problem+json.
+- id: mcp
+  name: Model Context Protocol
+  conforms: false
+  evidence: >-
+    https://paramark.com/pricing lists "API, MCP servers (coming soon)" on the Advanced and
+    Enterprise tiers. Announced, not shipped — no MCP endpoint answered on any probed host.
+- id: a2a
+  name: A2A Agent Card
+  conforms: false
+  evidence: >-
+    /.well-known/agent-card.json and /.well-known/agent.json 404 on paramark.com,
+    api.paramark.com and notebooks.paramark.com, and return the SPA HTML shell (not a card) on
+    dashboard.paramark.com.
+- id: graphql
+  name: GraphQL
+  conforms: false
+  evidence: /graphql returns 404 on api.paramark.com and paramark.com; no GraphQL surface
+    found.
+- id: asyncapi
+  name: AsyncAPI
+  conforms: false
+  evidence: No event, streaming or webhook surface is documented on any Paramark host
+    or in the paramark-inc GitHub organization.
+compliance_certifications_published: unknown
+compliance_note: >-
+  Paramark operates a Vanta-hosted trust center at https://trust.paramark.com (HTTP 200, title
+  "Paramark.com Trust Center"). The served HTML is a 7,069-byte client-side shell, so no
+  certification name (SOC 2, ISO 27001, GDPR, HIPAA, PCI) could be read without executing
+  scripts. Presence of the trust center is recorded in security/paramark-trust-center.yml; no
+  certification is asserted and no Compliance pointer is emitted.

@@ -1,0 +1,86 @@
+generated: '2026-08-12'
+method: probed
+source: https://signin.paramark.com/.well-known/openid-configuration
+docs: https://paramark.com/pricing
+note: >-
+  Paramark publishes no public API reference, so this profile is built from what its own hosts
+  return anonymously rather than from an OpenAPI securitySchemes block. Two authentication
+  surfaces were observed directly: a full OpenID Connect / OAuth 2.0 authorization server at
+  signin.paramark.com (documents saved verbatim under well-known/), and an HTTP Basic challenge
+  guarding the API host's own contract at api.paramark.com. No OpenAPI document was recoverable,
+  so nothing below is derived from a spec — every field is read from a live response.
+surfaces:
+- name: Paramark identity (OIDC / OAuth 2.0)
+  host: signin.paramark.com
+  issuer: https://signin.paramark.com
+  type: openIdConnect
+  discovery: https://signin.paramark.com/.well-known/openid-configuration
+  authorization_server_metadata: https://signin.paramark.com/.well-known/oauth-authorization-server
+  jwks_uri: https://signin.paramark.com/oauth2/jwks
+  platform: WorkOS AuthKit, on Paramark's own custom domain (the served document's
+    issuer is https://signin.paramark.com)
+  endpoints:
+    authorization: https://signin.paramark.com/oauth2/authorize
+    token: https://signin.paramark.com/oauth2/token
+    userinfo: https://signin.paramark.com/oauth2/userinfo
+    introspection: https://signin.paramark.com/oauth2/introspection
+    device_authorization: https://signin.paramark.com/oauth2/device_authorization
+    registration: https://signin.paramark.com/oauth2/register
+    jwks: https://signin.paramark.com/oauth2/jwks
+  grant_types:
+  - authorization_code
+  - client_credentials
+  - refresh_token
+  - urn:ietf:params:oauth:grant-type:device_code
+  response_types:
+  - code
+  response_modes:
+  - query
+  code_challenge_methods:
+  - S256
+  token_endpoint_auth_methods:
+  - none
+  - client_secret_basic
+  - client_secret_post
+  id_token_signing_alg_values:
+  - RS256
+  subject_types:
+  - public
+  scopes:
+  - openid
+  - profile
+  - email
+  - offline_access
+  dynamic_client_registration: true
+  client_id_metadata_document_supported: true
+  x-evidence:
+    fetched: '2026-08-12'
+    url: https://signin.paramark.com/.well-known/openid-configuration
+    http_status: 200
+    content_type: application/json; charset=utf-8
+- name: Paramark API (contract gated)
+  host: api.paramark.com
+  type: http
+  scheme: basic
+  observed: >-
+    GET https://api.paramark.com/openapi.json returns HTTP 401 with the response header
+    "www-authenticate: Basic" and body {"detail":"Unauthorized"}. The interactive FastAPI docs at
+    /docs and /redoc return the same 401. GET /healthz returns HTTP 200 {"status":"ok"}
+    anonymously, so the service is live; only the contract and its reference are walled.
+  runtime_auth_scheme_unknown: true
+  runtime_auth_note: >-
+    The HTTP Basic challenge guards the documentation endpoints. Paramark publishes no reference
+    describing how a caller authenticates against the API's own operations, so the runtime scheme
+    (bearer token from the OIDC issuer above, static API key, or Basic) is NOT recorded here.
+    Determining it requires credentials we do not hold; it is not guessed.
+  x-evidence:
+    fetched: '2026-08-12'
+    url: https://api.paramark.com/openapi.json
+    http_status: 401
+    www_authenticate: Basic
+    server: uvicorn
+gaps:
+- No public authentication documentation page exists on paramark.com or any subdomain.
+- No /.well-known/oauth-protected-resource is served on the API host, so an agent cannot
+  discover which authorization server protects api.paramark.com from the resource itself.
+- No security.txt is served on any host.

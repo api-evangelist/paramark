@@ -1,0 +1,131 @@
+generated: '2026-08-12'
+method: probed
+source: live HTTP probes of every Paramark host on 2026-08-12
+note: >-
+  Two real documents were recovered. Paramark's identity host signin.paramark.com serves a
+  complete OpenID Connect discovery document (RFC 8414 / OIDC Discovery 1.0) and an OAuth 2.0
+  Authorization Server Metadata document, both anonymous and both saved verbatim here. Every
+  other well-known path on every other host 404s. app.paramark.com 301s to
+  dashboard.paramark.com, which is a Next.js single-page app whose catch-all answers HTTP 200
+  with the same 13,676-byte HTML shell for every /.well-known/* path — those are recorded as
+  misses, not hits, per the SPA-catch-all rule.
+hosts:
+- host: signin.paramark.com
+  role: identity provider (WorkOS AuthKit tenant on Paramark's own domain; the served
+    document's own issuer is https://signin.paramark.com)
+  paths:
+  - path: /.well-known/openid-configuration
+    status: 200
+    content_type: application/json; charset=utf-8
+    file: paramark-openid-configuration.json
+    document: true
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    content_type: application/json; charset=utf-8
+    file: paramark-oauth-authorization-server.json
+    document: true
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    document: false
+  - path: /.well-known/security.txt
+    status: 404
+    document: false
+  - path: /.well-known/api-catalog
+    status: 404
+    document: false
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    document: false
+- host: paramark.com
+  role: marketing site (Framer)
+  paths:
+  - path: /.well-known/security.txt
+    status: 404
+    document: false
+  - path: /security.txt
+    status: 404
+    document: false
+  - path: /.well-known/openid-configuration
+    status: 404
+    document: false
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    document: false
+  - path: /.well-known/api-catalog
+    status: 404
+    document: false
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    document: false
+- host: api.paramark.com
+  role: production API host (uvicorn / FastAPI)
+  paths:
+  - path: /.well-known/security.txt
+    status: 404
+    document: false
+  - path: /.well-known/openid-configuration
+    status: 404
+    document: false
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    document: false
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    document: false
+  - path: /.well-known/api-catalog
+    status: 404
+    document: false
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    document: false
+- host: app.paramark.com
+  role: 301 redirect to dashboard.paramark.com
+  paths:
+  - path: /.well-known/security.txt
+    status: 301
+    document: false
+    note: redirects to https://dashboard.paramark.com/.well-known/security.txt, which
+      returns the SPA HTML shell
+  - path: /.well-known/openid-configuration
+    status: 301
+    document: false
+  - path: /.well-known/api-catalog
+    status: 301
+    document: false
+- host: dashboard.paramark.com
+  role: customer application (Next.js SPA)
+  paths:
+  - path: /.well-known/security.txt
+    status: 200
+    content_type: text/html; charset=utf-8
+    document: false
+    note: SPA catch-all — identical 13,676-byte HTML shell returned for every path;
+      NOT a document, recorded as a miss
+  - path: /.well-known/agent-card.json
+    status: 200
+    content_type: text/html; charset=utf-8
+    document: false
+    note: SPA catch-all HTML shell, rejected as an agent card
+  - path: /.well-known/agent.json
+    status: 200
+    content_type: text/html; charset=utf-8
+    document: false
+    note: SPA catch-all HTML shell, rejected as an agent card
+- host: notebooks.paramark.com
+  role: customer notebooks surface
+  paths:
+  - path: /.well-known/agent-card.json
+    status: 404
+    document: false
+  - path: /.well-known/agent.json
+    status: 404
+    document: false
+summary:
+  documents_found: 2
+  security_txt: false
+  openid_configuration: true
+  oauth_authorization_server: true
+  oauth_protected_resource: false
+  api_catalog: false
+  ai_plugin: false
+  agent_card: false

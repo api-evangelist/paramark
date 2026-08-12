@@ -1,0 +1,77 @@
+# Paramark
+
+> Paramark is a marketing measurement and forecasting platform for growth and finance teams. It
+> combines marketing mix modeling (MMM), incrementality testing and scenario planning to quantify
+> the true incremental contribution of marketing spend across search, social, TV and
+> out-of-home — rather than relying on last-touch attribution. Founded in 2022 by Pranav Piyush
+> and Pete Belknap, backed by Greylock.
+
+<!--
+generated: 2026-08-12
+method: generated
+source: all/paramark/apis.yml plus artifacts in this repository; https://paramark.com/llms.txt
+        returns HTTP 404, so no provider-published llms.txt exists to save verbatim.
+-->
+
+## What is true about Paramark's API surface
+
+Paramark runs a production API host at `https://api.paramark.com` (uvicorn / FastAPI). It is
+live — `GET https://api.paramark.com/healthz` returns `200 {"status":"ok"}` anonymously — but its
+contract is not public. `GET https://api.paramark.com/openapi.json`, `/docs` and `/redoc` all
+return `401` with `www-authenticate: Basic`. There is no developer portal, no API reference and no
+published OpenAPI at any URL on any Paramark host.
+
+API access is sold, not self-served: the pricing page attaches "API, MCP servers (coming soon)"
+to the Advanced ($150k/yr) and Enterprise ($220k/yr) tiers. The MCP servers are announced, not
+shipped — no MCP endpoint answered on any probed host as of 2026-08-12.
+
+What Paramark does publish anonymously and machine-readably is its identity layer.
+
+## Identity and authorization
+
+- [OpenID Connect discovery](https://signin.paramark.com/.well-known/openid-configuration):
+  issuer `https://signin.paramark.com`; authorization, token, userinfo, introspection, device
+  authorization and JWKS endpoints; RS256 ID tokens.
+- [OAuth 2.0 authorization server metadata](https://signin.paramark.com/.well-known/oauth-authorization-server):
+  PKCE `S256`, dynamic client registration at `/oauth2/register`, device code grant.
+- Grants: `authorization_code`, `client_credentials`, `refresh_token`,
+  `urn:ietf:params:oauth:grant-type:device_code`.
+- Scopes: `openid`, `profile`, `email`, `offline_access`. No product- or resource-scoped
+  permissions are advertised.
+- No `/.well-known/oauth-protected-resource` is served on the API host, so an agent cannot
+  discover from `api.paramark.com` which authorization server protects it.
+
+## Product
+
+- [Marketing mix modeling](https://paramark.com/marketing-mix-modeling)
+- [Incrementality testing](https://paramark.com/incrementality-testing)
+- [Growth advisory](https://paramark.com/growth-advisory)
+- [Forecast and plan](https://paramark.com/forecast-plan)
+- [Pricing](https://paramark.com/pricing): Essentials $100k/yr, Advanced $150k/yr,
+  Enterprise $220k/yr, all billed annually, all "talk with us"
+- [Sign in](https://signin.paramark.com/) · [Notebooks](https://notebooks.paramark.com/)
+
+## Open source
+
+- [paramark-inc/mmm](https://github.com/paramark-inc/mmm) — Apache-2.0 Python marketing mix
+  modeling workbench wrapping Google's lightweight_mmm; runs MMM from a standard CSV plus a YAML
+  config. No published distribution, no tags, no releases — consumed by git checkout.
+- The [paramark-inc](https://github.com/paramark-inc) organization also carries forks of
+  Meridian, Robyn, CausalImpact, MarketMatching, GeoLift and lightweight_mmm.
+
+## Trust and security
+
+- [Trust center](https://trust.paramark.com/) — Vanta-hosted, HTTP 200, but rendered
+  client-side; no certification is readable from the served HTML.
+- No `security.txt`, no published vulnerability disclosure policy, no bug bounty program.
+- No status page, no changelog, no versioning or deprecation policy, no terms of service page.
+- [Privacy policy](https://paramark.com/privacy-policy)
+
+## Writing
+
+- [Blog](https://paramark.com/blog) · [Podcast](https://paramark.com/podcast) ·
+  [Newsletter](https://paramark.com/newsletter) · [Manifesto](https://paramark.com/manifesto)
+
+## Contact
+
+- hello@paramark.com

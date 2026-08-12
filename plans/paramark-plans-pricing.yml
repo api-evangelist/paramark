@@ -1,0 +1,83 @@
+generated: '2026-08-12'
+method: searched
+source: https://paramark.com/pricing
+note: >-
+  Paramark publishes real annual list prices on its public pricing page — unusual for a platform
+  in this segment — but there is no self-serve signup: every tier's call to action is "TALK WITH
+  US". API access is not a product of its own; it is a feature attached to the two upper tiers,
+  where the page reads "API, MCP servers (coming soon)". The MCP servers are announced, not
+  shipped.
+currency: USD
+billing_period: annual
+self_serve: false
+free_tier: false
+trial: false
+plan_count: 3
+plans:
+- name: Essentials
+  price: 100000
+  currency: USD
+  period: year
+  billing: billed annually
+  audience: Teams getting started with advanced measurement and few marketing channels
+  included:
+  - 1 Marketing Mix Model
+  - Unlimited incrementality tests
+  - Scenario planning (base, best and worst case)
+  - White-glove onboarding
+  - Bi-weekly expert reviews
+  - Dedicated growth advisor
+  - Unlimited users
+  api_access: false
+  cta: TALK WITH US
+- name: Advanced
+  price: 150000
+  currency: USD
+  period: year
+  billing: billed annually
+  audience: Businesses spending $10M+ across many channels and segments
+  included:
+  - 2 Marketing Mix Models
+  - Hierarchical models (geos)
+  - Unlimited incrementality tests
+  - Scenario planning
+  - White-glove onboarding
+  - Bi-weekly expert reviews
+  - Dedicated growth advisor
+  - Unlimited users
+  - Data export
+  - API
+  api_access: true
+  api_note: 'Page text: "API, MCP servers (coming soon)" — the API is included at this
+    tier; MCP servers are announced as coming soon.'
+  cta: TALK WITH US
+- name: Enterprise
+  price: 220000
+  currency: USD
+  period: year
+  billing: billed annually; custom pricing available
+  audience: Established organizations with advanced needs
+  included:
+  - 3+ Marketing Mix Models
+  - Hierarchical models (geos)
+  - Unlimited incrementality tests
+  - Scenario planning
+  - White-glove onboarding
+  - Bi-weekly expert reviews
+  - Dedicated growth advisor
+  - Unlimited users
+  - Data export
+  - API
+  api_access: true
+  api_note: 'Page text: "API, MCP servers (coming soon)".'
+  cta: TALK WITH US
+notes:
+- Semi-annual, quarterly and monthly billing incur additional fees.
+- Startup pricing is available on request.
+- Contact for all tiers is hello@paramark.com.
+- No usage quota, overage rate, or per-call price is published for API access at any
+  tier.
+x-evidence:
+  fetched: '2026-08-12'
+  url: https://paramark.com/pricing
+  http_status: 200

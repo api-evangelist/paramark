@@ -10,8 +10,13 @@ description: 'Paramark is a marketing measurement and forecasting platform that 
   TV, and out-of-home, giving marketers defensible ROI numbers to bring to their finance
   teams. Paramark maintains an open-source Marketing Mix Modeling workbench and forks
   of the major MMM libraries under its paramark-inc GitHub organization. Paramark
-  does not currently publish a public developer API or documentation portal; API access
-  is offered as a feature of its Advanced commercial tier.'
+  runs a production API at api.paramark.com, but publishes no developer portal and no
+  public contract: its FastAPI-generated OpenAPI, /docs and /redoc all answer HTTP 401
+  behind an HTTP Basic challenge, and API access is sold as a feature of the Advanced
+  ($150k/yr) and Enterprise ($220k/yr) tiers, where MCP servers are listed as coming
+  soon. What Paramark does publish anonymously and machine-readably is its identity
+  layer: full OpenID Connect and OAuth 2.0 authorization server metadata at
+  signin.paramark.com, with PKCE, device code and dynamic client registration.'
 url: https://raw.githubusercontent.com/api-evangelist/paramark/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -20,19 +25,21 @@ x-backed-by:
 x-tier: stub
 x-tier-reason: portfolio-lead
 accessModel:
-  pricing: unknown
-  onboarding: unknown
+  pricing: enterprise
+  onboarding: approval
   trial: false
   try_now: false
   public: false
-  label: Unknown
-  confidence: low
-  source: []
-  generated: '2026-07-22'
-  method: derived
+  label: Enterprise · Requires approval
+  confidence: high
+  source:
+  - plans
+  - https://paramark.com/pricing
+  generated: '2026-08-12'
+  method: searched
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-20'
+modified: '2026-08-12'
 image: https://framerusercontent.com/images/V0dFY5kITNK8vNXgA2K3xW0y6k.png
 tags:
 - Company
@@ -44,7 +51,33 @@ tags:
 - Incrementality
 - Advertising
 - AI
-apis: []
+apis:
+- name: Paramark API
+  description: >-
+    Paramark's production API, offered as a feature of the Advanced and Enterprise tiers.
+    The service is live and answers anonymously at GET /healthz (HTTP 200 {"status":"ok"})
+    and is a FastAPI application (server: uvicorn), which means it generates an OpenAPI
+    document — but that document is not public: GET https://api.paramark.com/openapi.json,
+    /docs and /redoc all return HTTP 401 with www-authenticate: Basic. No developer portal
+    or API reference is published on any Paramark host, so no operations, parameters or
+    schemas are recorded here. Authorization is described separately from the OpenID
+    Connect and OAuth 2.0 metadata Paramark serves anonymously at signin.paramark.com.
+  humanURL: https://paramark.com/pricing
+  baseURL: https://api.paramark.com
+  tags:
+  - Marketing
+  - Measurement
+  - Marketing Mix Modeling
+  - Incrementality
+  - Analytics
+  properties:
+  - type: Authentication
+    url: authentication/paramark-authentication.yml
+  - type: OAuthScopes
+    url: scopes/paramark-scopes.yml
+  x-contract-status: gated
+  x-contract-note: >-
+    OpenAPI exists behind an HTTP Basic challenge; captured as an absence, never fabricated.
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -64,9 +97,54 @@ common:
 - type: GitHubOrganization
   url: https://github.com/paramark-inc
 - type: Login
-  url: https://notebooks.paramark.com/
+  url: https://signin.paramark.com/
+- type: WellKnown
+  url: well-known/paramark-well-known.yml
+- type: Authentication
+  url: authentication/paramark-authentication.yml
+- type: OAuthScopes
+  url: scopes/paramark-scopes.yml
+- type: OpenIDConnect
+  url: well-known/paramark-openid-configuration.json
+- type: Conformance
+  url: conformance/paramark-conformance.yml
+- type: TrustCenter
+  url: security/paramark-trust-center.yml
+- type: Plans
+  url: plans/paramark-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/paramark-rate-limits.yml
+- type: Packages
+  url: packages/paramark-packages.yml
+- type: LLMsTxt
+  url: llms/paramark-llms.txt
 x-enrichment:
-  date: '2026-07-20'
-  status: minimal
-  artifacts_added: 1
+  date: '2026-08-12'
+  status: enriched
+  artifacts_added: 11
   pass: local-v1
+x-coverage:
+  state: covered
+  reason: null
+  detail: >-
+    Contract discovery partly succeeded despite a gate. Paramark's API is real and live —
+    api.paramark.com is a FastAPI service whose GET /healthz answers 200 anonymously — but its
+    generated OpenAPI, /docs and /redoc all return HTTP 401 with www-authenticate: Basic, and no
+    reference is published anywhere else, so no spec could be captured. What was recovered
+    instead, verbatim and anonymously from Paramark's own hosts, is the identity layer: the
+    OpenID Connect discovery and OAuth 2.0 authorization server metadata at signin.paramark.com,
+    plus published annual pricing and a Vanta trust center.
+  evidence:
+  - url: https://api.paramark.com/openapi.json
+    status: 401
+  - url: https://api.paramark.com/healthz
+    status: 200
+  - url: https://signin.paramark.com/.well-known/openid-configuration
+    status: 200
+  - url: https://signin.paramark.com/.well-known/oauth-authorization-server
+    status: 200
+  - url: https://trust.paramark.com/
+    status: 200
+  - url: https://paramark.com/llms.txt
+    status: 404
+  checked: '2026-08-12'

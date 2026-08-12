@@ -1,0 +1,69 @@
+generated: '2026-08-12'
+method: searched
+source: >-
+  npm registry, PyPI, RubyGems, crates.io, Maven Central, NuGet, pkg.go.dev and
+  https://github.com/paramark-inc, searched 2026-08-12
+note: >-
+  Paramark ships NO client SDK for its API. Searches for "paramark" returned HTTP 404 on
+  registry.npmjs.org, pypi.org, rubygems.org and (403/absent) crates.io, and no SDK page exists
+  on paramark.com. What the company does publish as open source is a research workbench, not an
+  API client: paramark-inc/mmm, an Apache-2.0 Python wrapper around Google's lightweight_mmm
+  that runs marketing mix models from a CSV. It is distributed only as a git checkout — its
+  pyproject.toml declares no package name or version (only requires-python = "==3.11"), and the
+  repository carries zero tags and zero releases — so there is no registry metadata endpoint to
+  read a version from. That is recorded as version: null, which means "checked, nothing to
+  record", not "not checked". Because none of this is a first-party client library for the
+  Paramark API, NO SDKs pointer is emitted.
+sdk_count: 0
+official_sdk_count: 0
+package_count: 1
+packages:
+- name: paramark-inc/mmm
+  language: python
+  registry: github
+  official: true
+  client_library: false
+  kind: open-source marketing mix modeling workbench (not an API client)
+  url: https://github.com/paramark-inc/mmm
+  install: git clone https://github.com/paramark-inc/mmm && pip3 install -r requirements.txt
+  license: Apache-2.0
+  version: null
+  published: null
+  version_note: >-
+    No published distribution and no releases. The repository has no tags and no GitHub
+    releases, and pyproject.toml contains no [project] name or version, so the code is
+    consumed by git checkout at whatever main points to. A consumer cannot pin a version,
+    which is itself the finding.
+  last_pushed: '2026-08-10'
+  requires_python: '3.11'
+  submodules:
+  - https://github.com/paramark-inc/lightweight_mmm (fork of google/lightweight_mmm,
+    Apache-2.0)
+registries_checked:
+- registry: npm
+  query: paramark
+  status: 404
+- registry: npm
+  query: '@paramark/sdk'
+  status: 404
+- registry: npm
+  query: paramark-sdk
+  status: 404
+- registry: pypi
+  query: paramark
+  status: 404
+- registry: pypi
+  query: paramark-mmm
+  status: 404
+- registry: rubygems
+  query: paramark
+  status: 404
+- registry: crates.io
+  query: paramark
+  status: 403
+  note: crates.io rejects unauthenticated agent lookups; no crate named paramark is
+    referenced in any Paramark documentation
+forks_note: >-
+  The paramark-inc organization also hosts forks of google/meridian, facebookexperimental/Robyn,
+  google/CausalImpact, google/MarketMatching and facebookincubator/GeoLift. These are forks of
+  third-party MMM libraries, not Paramark packages, and are not listed as Paramark distributions.

@@ -1,0 +1,28 @@
+generated: '2026-08-12'
+method: searched
+source: https://paramark.com/pricing
+note: >-
+  An honest zero. Paramark documents no rate limits anywhere on its public surface. There is no
+  developer portal, no API reference, and the pricing page — the only page that mentions the API
+  at all — attaches "API" to the Advanced and Enterprise tiers without stating a call quota, a
+  window, a burst allowance or an overage rate. No rate-limit response headers could be observed
+  either: the only anonymous endpoint on the API host, GET https://api.paramark.com/healthz,
+  returns HTTP 200 with no X-RateLimit-*, RateLimit-* or Retry-After header, and every other path
+  requires credentials.
+limit_count: 0
+limits: []
+headers_published: false
+headers: []
+exhaustion_status_code: null
+retry_after: null
+probed:
+- url: https://api.paramark.com/healthz
+  http_status: 200
+  rate_limit_headers_observed: false
+- url: https://paramark.com/pricing
+  http_status: 200
+  rate_limits_documented: false
+- url: https://api.paramark.com/openapi.json
+  http_status: 401
+  note: contract is behind an HTTP Basic challenge, so no spec-declared limits are
+    readable
