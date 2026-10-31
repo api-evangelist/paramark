@@ -64,6 +64,107 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Paramark is a company surfaced as a portfolio company of greylock and added to the API Evangelist network as a stub for enrichment. Sector: applications. This profile is a lead awaiting the enrichment pipeline.
+Paramark is a marketing measurement and forecasting platform that helps growth and finance teams understand the true incremental impact of their marketing spend. Founded in 2022 by Pranav Piyush and Pete Belknap and backed by Greylock, Paramark combines incrementality testing, marketing mix modeling (MMM), and scenario planning in one place, augmented by human growth advisors and AI agents. Rather than relying on last-touch attribution, the platform uses statistics and machine learning to quantify each channel's incremental contribution across search, social, TV, and out-of-home, giving marketers defensible ROI numbers to bring to their finance teams. Paramark maintains an open-source Marketing Mix Modeling workbench and forks of the major MMM libraries under its paramark-inc GitHub organization. Paramark runs a production API at api.paramark.com, but publishes no developer portal and no public contract: its FastAPI-generated OpenAPI, /docs and /redoc all answer HTTP 401 behind an HTTP Basic challenge, and API access is sold as a feature of the Advanced ($150k/yr) and Enterprise ($220k/yr) tiers, where MCP servers are listed as coming soon. What Paramark does publish anonymously and machine-readably is its identity layer: full OpenID Connect and OAuth 2.0 authorization server metadata at signin.paramark.com, with PKCE, device code and dynamic client registration.
 
-Backed by: greylock — https://paramark.com/
+**Areas:** Company · Application · Marketing · Analytics · Measurements · Marketing Mix Modeling · Incrementality · Advertising · Artificial Intelligence
+
+## Paramark on APIs.io
+
+Everything profiled for Paramark is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/paramark/](https://apis.io/providers/paramark/)** — or go straight to one of the APIs or properties below.
+
+### APIs (1)
+
+- [Paramark API](https://apis.io/apis/paramark/paramark-api/) — Paramark's production API, offered as a feature of the Advanced and Enterprise tiers. The service is live and answers anonymously at GET /healthz (HTTP 200…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Paramark Authentication](https://apis.io/security/paramark/paramark-authentication/)
+- [Paramark Domain Security](https://apis.io/security/paramark/paramark-domain-security/)
+- [Paramark Trust Center](https://apis.io/security/paramark/paramark-trust-center/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Paramark Scopes](https://apis.io/scopes/paramark/paramark-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Paramark Plans Pricing](https://apis.io/plans/paramark/paramark-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Paramark Rate Limits](https://apis.io/rate-limits/paramark/paramark-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://paramark.com/)
+- [Pricing](https://paramark.com/pricing)
+- [Blog](https://paramark.com/blog)
+- [Privacy policy](https://paramark.com/privacy-policy)
+- [GitHub](https://github.com/paramark-inc)
+
+## API Evangelist rating
+
+**Kin Score 28.8** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 0.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 2.6 |
+| Developer ergonomics | 14.3 |
+| Access clarity | 67.1 |
+
+**Agent readiness 5.0** — human-only
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 32.7** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/paramark/](https://apis.io/providers/paramark/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Paramark: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/paramark/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
